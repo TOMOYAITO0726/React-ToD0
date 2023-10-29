@@ -22,8 +22,6 @@ export const App = () => {
             </div>
           );
         })}
-        
-        
       </ul>
     </div>
     <div className="complete-area">
