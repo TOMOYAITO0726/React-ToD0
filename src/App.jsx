@@ -18,6 +18,15 @@ export const App = () => {
     newTodos.splice(index, 1);//配列から要素を削除する
     setIncompleteTodos(newTodos);//新しい未完了のTODOリストをnewTodos配列で更新する。
   }
+
+  const onClickComplete = (index) => {
+    const newIncompleteTodos = [...incompleteTodos];//未完了のTODOをコピーした新しい配列を作成
+    newIncompleteTodos.splice(index, 1);//配列から要素を削除する
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    //completeTodosが現在の完了のTODOでincompleteTodosが追加される完了のTODO（未完了のTODOで完了を押されたTODO）
+    setIncompleteTodos(newIncompleteTodos);//未完了のTODOリストを更新
+    setCompleteTodos(newIncompleteTodos);//完了のTODOリストを更新
+  }
   return (
   <>  
     <div className="input-area">
@@ -31,7 +40,7 @@ export const App = () => {
           return (
             <div key={todo} className="list-row">
               <li>{todo}</li>
-              <button>完了</button>
+              <button onClick={() => onClickComplete(index)}>完了</button>
               <button onClick={() => onClickDelete(index)}>削除</button> 
             </div>
           );
