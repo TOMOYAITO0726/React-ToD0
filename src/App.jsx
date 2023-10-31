@@ -3,14 +3,20 @@ import "./styles.css";
 
 export const App = () => {
   const [todoText, setTodoText] = useState('');
-  const [imcompleteTodos, setIncompleteTodos] = useState(['あ', 'い']);
+  const [incompleteTodos, setIncompleteTodos] = useState(['あ', 'い']);
   const [completeTodos, setCompleteTodos] = useState(['う']);
   const onChangeTodoText = (event) => setTodoText(event.target.value);//inputフォームに値を入力できるようにする
   const onClickAdd = () => { //追加ボタンを押すと入力フォームの値を未完了のTODOに追加
     if(todoText === "") return;//入力が空文字なら追加できないようにする
-    const newTodos = [...imcompleteTodos, todoText];
+    const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);
     setTodoText("");//追加ボタンを押した後に入力フォームを空文字にする
+  }
+
+  const onClickDelete = (index) => { //削除ボタンを押すと、ToDoから削除されるようになる
+    const newTodos = [...incompleteTodos];//未完了のTODOをコピーした新しい配列を作成
+    newTodos.splice(index, 1);//配列から要素を削除する
+    setIncompleteTodos(newTodos);//新しい未完了のTODOリストをnewTodos配列で更新する。
   }
   return (
   <>  
@@ -21,12 +27,12 @@ export const App = () => {
     <div className="imcomplete-area">
       <p className="title">未完了のTODO</p>
       <ul>
-        {imcompleteTodos.map((todo) => {
+        {incompleteTodos.map((todo, index) => { //indexを書くことで要素に番号を振る
           return (
             <div key={todo} className="list-row">
               <li>{todo}</li>
               <button>完了</button>
-              <button>削除</button>
+              <button onClick={() => onClickDelete(index)}>削除</button> 
             </div>
           );
         })}
