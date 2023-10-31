@@ -15,7 +15,7 @@ export const App = () => {
 
   const onClickDelete = (index) => { //削除ボタンを押すと、ToDoから削除されるようになる
     const newTodos = [...incompleteTodos];//未完了のTODOをコピーした新しい配列を作成
-    newTodos.splice(index, 1);//配列から要素を削除する
+    newTodos.splice(index, 1);//配列から要素を削除する 1個削除するから１？
     setIncompleteTodos(newTodos);//新しい未完了のTODOリストをnewTodos配列で更新する。
   }
 
@@ -27,6 +27,15 @@ export const App = () => {
     setIncompleteTodos(newIncompleteTodos);//未完了のTODOリストを更新
     setCompleteTodos(newIncompleteTodos);//完了のTODOリストを更新
   }
+
+  // const onClickBack = (index) => {
+  //   const newCompleteTodos = [...completeTodos];
+  //   newCompleteTodos.splice(index, 1);
+
+  //   const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
+  //   setCompleteTodos(newCompleteTodos);
+  //   setIncompleteTodos(newIncompleteTodos);
+  // }
   return (
   <>  
     <div className="input-area">
@@ -50,11 +59,11 @@ export const App = () => {
     <div className="complete-area">
       <p className="title">完了のTODO</p>
       <ul>
-        {completeTodos.map((todo) => {
+        {completeTodos.map((todo, index) => {
           return (
             <div key={todo} className="list-row">
           <li>{todo}</li>
-          <button>戻す</button>
+          <button onClick={() => onClickBack(index) }>戻す</button>
         </div>
           );
         })}
