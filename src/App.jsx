@@ -3,8 +3,8 @@ import "./styles.css";
 
 export const App = () => {
   const [todoText, setTodoText] = useState('');
-  const [incompleteTodos, setIncompleteTodos] = useState(['あ', 'い']);
-  const [completeTodos, setCompleteTodos] = useState(['う']);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const [completeTodos, setCompleteTodos] = useState([]);
   const onChangeTodoText = (event) => setTodoText(event.target.value);//inputフォームに値を入力できるようにする
   const onClickAdd = () => { //追加ボタンを押すと入力フォームの値を未完了のTODOに追加
     if(todoText === "") return;//入力が空文字なら追加できないようにする
@@ -25,17 +25,17 @@ export const App = () => {
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
     //completeTodosが現在の完了のTODOでincompleteTodosが追加される完了のTODO（未完了のTODOで完了を押されたTODO）
     setIncompleteTodos(newIncompleteTodos);//未完了のTODOリストを更新
-    setCompleteTodos(newIncompleteTodos);//完了のTODOリストを更新
+    setCompleteTodos(newCompleteTodos);//完了のTODOリストを更新
   }
 
-  // const onClickBack = (index) => {
-  //   const newCompleteTodos = [...completeTodos];
-  //   newCompleteTodos.splice(index, 1);
+  const onClickBack = (index) => {
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
 
-  //   const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
-  //   setCompleteTodos(newCompleteTodos);
-  //   setIncompleteTodos(newIncompleteTodos);
-  // }
+    const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
+    setCompleteTodos(newCompleteTodos);
+    setIncompleteTodos(newIncompleteTodos);
+  }
   return (
   <>  
     <div className="input-area">
